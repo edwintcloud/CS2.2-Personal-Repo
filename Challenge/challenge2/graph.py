@@ -1,4 +1,5 @@
 from vertex import Vertex
+from queue import SimpleQueue
 
 
 class Graph:
@@ -52,6 +53,47 @@ class Graph:
             for w in v.neighbors:
                 result.append((v.get_id(),
                                w.get_id(), v.get_edge_weight(w)))
+        return result
+
+    def get_shortest_path(self, vtxA, vtxB):
+        """Return the shortest path from vertex a to vertex b."""
+
+        # ensure that vtxA and vtxB are in graph
+        if vtxA not in self.vertices or vtxB not in self.vertices:
+            raise Exception("One or both of the supplied vertices " +
+                            vtxA + ", " + vtxB + " is not in this graph.")
+
+        # create our needed structures
+        result = []
+        visited = set()
+        queue = SimpleQueue()
+
+        # initialize queue and visited set with vtxA
+        queue.put(self.vertices[vtxA])  # throw exception if not in vertices
+        visited.add(self.vertices[vtxA])
+
+        # while there are vertices in the queue
+        while queue.qsize() > 0:
+            # dequeue a vertex and append it to result array
+            curVtx = queue.get()
+            result.append(curVtx.id)
+            # if the current vertex is vtxB, we are done
+            if curVtx.id == vtxB:
+                break
+            # otherwise, iterate through current vertex's neighbors
+            for neighbor in curVtx.get_neighbors():
+                # if the neighbor is the vertex we are looking for, we are done
+                # append the neighbor to the result and return
+                if neighbor.id == vtxB:
+                    result.append(neighbor.id)
+                    return result
+                # otherwise, if the neighbor hasn't been visited,
+                # enqueue it and mark as visited
+                elif neighbor not in visited:
+                    queue.put(neighbor)
+                    visited.add(neighbor)
+
+        # return result list of vertex ids
         return result
 
     def _read_from_file(self, file_name):
