@@ -15,4 +15,4 @@ if __name__ == "__main__":
     print("Vertices in shortest path: {}".format(",".join(shortest_path)))
 
     # the # edges in the shortest path.
-    print("Number of edges in shortest path: {}".format(len(shortest_path)))
+    print("Number of edges in shortest path: {}".format(len(shortest_path)-1))

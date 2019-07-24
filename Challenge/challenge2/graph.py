@@ -68,30 +68,27 @@ class Graph:
         visited = set()
         queue = SimpleQueue()
 
-        # initialize queue and visited set with vtxA
-        queue.put(self.vertices[vtxA])  # throw exception if not in vertices
-        visited.add(self.vertices[vtxA])
+        # initialize queue with start vertex
+        queue.put(self.vertices[vtxA])
 
         # while there are vertices in the queue
         while queue.qsize() > 0:
-            # dequeue a vertex and append it to result array
+            # dequeue a vertex
             curVtx = queue.get()
-            result.append(curVtx.id)
-            # if the current vertex is vtxB, we are done
-            if curVtx.id == vtxB:
-                break
-            # otherwise, iterate through current vertex's neighbors
-            for neighbor in curVtx.get_neighbors():
-                # if the neighbor is the vertex we are looking for, we are done
-                # append the neighbor to the result and return
-                if neighbor.id == vtxB:
-                    result.append(neighbor.id)
-                    return result
-                # otherwise, if the neighbor hasn't been visited,
-                # enqueue it and mark as visited
-                elif neighbor not in visited:
+            # if the vertex has not been visited
+            if curVtx not in visited:
+                # add it to visited set and result list
+                visited.add(curVtx)
+                result.append(curVtx.id)
+                # iterate through its neighbors
+                for neighbor in curVtx.get_neighbors():
+                    # if the neighbor is the vertex we are looking for, we are done
+                    # append the neighbor to the result and return
+                    if neighbor.id == vtxB:
+                        result.append(neighbor.id)
+                        return result
+                    # otherwise, put the neighbor in the queue
                     queue.put(neighbor)
-                    visited.add(neighbor)
 
         # return result list of vertex ids
         return result
