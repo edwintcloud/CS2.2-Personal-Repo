@@ -19,7 +19,8 @@ class Graph:
             self._read_from_file(file_name)
 
     def add_vertex(self, key):
-        """Add a new vertex object to the graph with the given key and return the vertex."""
+        """Add a new vertex object to the graph with the given key and return
+        the vertex."""
         if key not in self.vertices:
             self.num_vertices += 1
             self.vertices[key] = Vertex(key)
@@ -30,7 +31,8 @@ class Graph:
         return None if key not in self.vertices else self.vertices[key]
 
     def add_edge(self, key1, key2, weight=1):
-        """Add an edge from vertex with key `key1` to vertex with key `key2` with an optional weight."""
+        """Add an edge from vertex with key `key1` to vertex with key `key2`
+        with an optional weight."""
         if self.get_vertex(key1) is None:
             self.add_vertex(key1)
         if self.get_vertex(key2) is None:
@@ -43,7 +45,8 @@ class Graph:
         return self.vertices.keys()
 
     def __iter__(self):
-        """Iterate over the vertex objects in the graph, to use sytax: for v in g."""
+        """Iterate over the vertex objects in the graph, to use sytax: for v
+         in g."""
         return iter(self.vertices.values())
 
     def get_edges(self):
@@ -51,8 +54,7 @@ class Graph:
         result = []
         for v in self.vertices.values():
             for w in v.neighbors:
-                result.append((v.get_id(),
-                               w.get_id(), v.get_edge_weight(w)))
+                result.append((v.get_id(), w.get_id(), v.get_edge_weight(w)))
         return result
 
     def get_shortest_path(self, vtxA, vtxB):
@@ -60,8 +62,10 @@ class Graph:
 
         # ensure that vtxA and vtxB are in graph
         if vtxA not in self.vertices or vtxB not in self.vertices:
-            raise Exception("One or both of the supplied vertices " +
-                            vtxA + ", " + vtxB + " is not in this graph.")
+            raise Exception(
+                f"One or both of the supplied vertices \
+                {vtxA}, {vtxB} is not in this graph."
+            )
 
         # create our needed structures
         result = []
@@ -82,8 +86,8 @@ class Graph:
                 result.append(curVtx.id)
                 # iterate through its neighbors
                 for neighbor in curVtx.get_neighbors():
-                    # if the neighbor is the vertex we are looking for, we are done
-                    # append the neighbor to the result and return
+                    # if the neighbor is the vertex we are looking for,
+                    # we are done append the neighbor to the result and return
                     if neighbor.id == vtxB:
                         result.append(neighbor.id)
                         return result
@@ -97,7 +101,7 @@ class Graph:
         """Read a graph from a file."""
 
         # load file specified
-        with open(file_name, 'r') as f:
+        with open(file_name, "r") as f:
             file_lines = f.readlines()
 
         # if less than 3 lines in file, throw error
@@ -108,18 +112,22 @@ class Graph:
         self.type = file_lines[0].strip()
         if self.type != "G" and self.type != "D":
             raise Exception(
-                "Expected input file to have a type of G or D for line 1 but " + self.type + " was given.")
+                f"Expected input file to have a type of G or D \
+                for line 1 but {self.type} was given."
+            )
 
         # add graph vertices
-        for vtx in file_lines[1].strip().split(','):
+        for vtx in file_lines[1].strip().split(","):
             self.add_vertex(vtx)
 
         # add graph edges
         for line in file_lines[2:]:
-            edge_spec = line.strip("() \n").split(',')
+            edge_spec = line.strip("() \n").split(",")
             if len(edge_spec) != 3 and len(edge_spec) != 2:
                 raise Exception(
-                    "Expected input file edge specification to have 2 or 3 items but " + line + " was given.")
+                    f"Expected input file edge specification to have 2 \
+                    or 3 items but {line} was given."
+                )
             vtx1, vtx2 = edge_spec[:2]
             weight = 1 if len(edge_spec) != 3 else int(edge_spec[2])
             if self.type == "G":

@@ -1,6 +1,7 @@
 class Vertex(object):
     """ Vertex Class
-    A helper class for the Graph class that defines vertices and vertex neighbors.
+    A helper class for the Graph class that defines vertices and vertex
+    neighbors.
     """
 
     def __init__(self, vertex):
