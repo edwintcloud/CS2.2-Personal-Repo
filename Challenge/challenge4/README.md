@@ -26,6 +26,7 @@ Given a value N, if we want to make change for N cents, and we have infinite sup
 
 ## Resources
 
-https://skerritt.blog/dynamic-programming/#knapsack-problem
-http://rosettacode.org/wiki/Knapsack_problem/0-1#Recursive_dynamic_programming_algorithm
-https://www.geeksforgeeks.org/coin-change-dp-7/
+- https://skerritt.blog/dynamic-programming/#knapsack-problem
+- http://rosettacode.org/wiki/Knapsack_problem/0-1#Recursive_dynamic_programming_algorithm
+- https://www.geeksforgeeks.org/coin-change-dp-7/
+- https://leetcode.com/problems/coin-change/discuss/77360/C++-O(n*amount)-time-O(amount)-space-DP-solution

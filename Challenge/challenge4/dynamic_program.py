@@ -22,7 +22,7 @@ class Coins:
             coins = self.coins
             target_value = self.target_value
 
-        # return empty tuple if items is empty
+        # return -1 if coins is empty
         if not coins:
             return -1
 
